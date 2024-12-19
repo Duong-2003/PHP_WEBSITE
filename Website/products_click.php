@@ -7,16 +7,20 @@
     <title>Danh sách sản phẩm theo loại</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
+    <style>   body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif; /* Thay đổi phông chữ mặc định */
+            color: #333; /* Màu chữ mặc định */
+        }
+
         .content a {
             text-decoration: none;
         }
 
         .card {
-            box-shadow: 0 0 5px 0px;
-            color: #999;
-            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
+            border-radius: 15px;
         }
 
         .card:hover {
@@ -27,45 +31,67 @@
             position: sticky;
             top: 0;
             height: calc(133vh -0px);
-            border: 1px solid #ddd;
             padding: 20px;
             border-radius: 20px;
-            background-color: #f8f9fa;
+            background-color: #ffffff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
         }
 
-        @media screen and (max-width: 768px) {
-            .sidebar {
-                border: none;
-                position: relative;
-                height: auto;
-            }
+        .sidebar h5 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.25rem; /* Kích thước phông chữ */
         }
 
-        button.cart-button.btn-buy {
-            width: 150px;
+        .sidebar a {
+            color: #333;
+            font-size: 1rem; /* Kích thước phông chữ cho danh mục */
+        }
+
+      button.cart-button.btn-buy  {
+            width: 100%;
             background: #DC2028;
             height: 35px;
-            /* display: flex; */
-            align-items: center;
-            justify-content: center;
             /* border-radius: 30px; */
             color: #fff;
             font-size: 14px;
-            border: none; /* Sửa đổi border */
+            border: none;
+           
+            margin-top: 10px;
         }
 
-        #buy {
-            color: #fff;
+      button.cart-button.btn-buy :hover {
+            background: #c81d24;
+        }
+
+        .pagination .page-link {
+            color: #007bff;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #6c757d;
         }
 
         .list-group-item {
-            flex: 1; /* Đảm bảo các mục trong danh sách có chiều cao đồng đều */
-          
+            flex: 1;
         }
+
+        .card-title {
+            font-size: 1.1rem; /* Kích thước phông chữ cho tên sản phẩm */
+        }
+
+        .card-text {
+            font-size: 1rem; /* Kích thước phông chữ cho giá sản phẩm */
+        }
+        a#buy {
+    color: #fff;
+}
     </style>
 </head>
 

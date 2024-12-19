@@ -58,11 +58,12 @@
                         <th>Trạng thái</th>
                         <th>Tiền thu</th>
                         <th>Số lượng sản phẩm</th>
-                        <th>Thao tác</th>
+                      
                     </tr>
                 </thead>
                 <tbody>
                     <?php
+                    
                     $sql = "SELECT * FROM `order`"; // Kiểm tra lại tên bảng
                     $result = $connect->query($sql);
 
@@ -80,17 +81,13 @@
                                     </td>
                                     <td><?= $order_price_formatted ?> đ</td>
                                     <td><?= htmlspecialchars(string: $row['order_quantity']) ?></td>
-                                    <td>
+                                 
                                     <td>
                                         <div class="d-flex justify-content-center">
-                                            <a data-bs-toggle="modal"
-                                                data-bs-target="#infoOrder<?= htmlspecialchars($row['order_id']) ?>"
-                                                class="btn btn-info btn-sm mx-1">Thông tin</a>
-                                            <a href="./form_order.php?datakey=<?= urlencode($row['order_id']) ?>"
-                                                class="btn btn-warning btn-sm mx-1">Sửa</a>
+                                          
+                                            
                                             <?php if ($row['order_status'] != "Đã hủy"): ?>
-                                                <a href="../Includes/BE/order_cancel.php?datakey=<?= urlencode($row['order_id']) ?>"
-                                                    class="btn btn-danger btn-sm mx-1">Huỷ đơn</a>
+                                                <a class="btn btn-danger btn-sm mx-1">Huỷ đơn</a>
                                             <?php endif; ?>
                                         </div>
                                     </td>
@@ -117,13 +114,7 @@
         });
     </script>
 
-    <?php
-    // Hiển thị modal cho từng đơn hàng
-    $result->data_seek(0); // Reset con trỏ về đầu
-    while ($row = $result->fetch_assoc()) {
-        include("../Includes/FE/modal_info_order.php");
-    }
-    ?>
+    
 
 </body>
 

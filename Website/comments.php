@@ -18,6 +18,8 @@ include('../connect_SQL/connect.php'); // Kết nối cơ sở dữ liệu
 </head>
 
 <body>
+
+
     <section class="section_flash_sale">
         <div class="container">
             <div class="home-title">
@@ -63,3 +65,5 @@ include('../connect_SQL/connect.php'); // Kết nối cơ sở dữ liệu
 </body>
 
 </html>
+
+

@@ -10,27 +10,44 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f0f2f5; /* Light background for contrast */
         }
 
         .profile-header {
-            background-color: #f7f7f7;
+            background-color: #ffffff; /* White background for header */
             padding: 20px;
-            border-bottom: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .profile-header img {
             border-radius: 50%;
             width: 120px;
             height: 120px;
+            border: 3px solid #ff4d4d; /* Add border for aesthetics */
         }
 
         .profile-info {
             margin-top: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .form-control[readonly] {
             background-color: #e9ecef;
+        }
+
+        .btn-primary {
+            background-color: #ff4d4d; /* Custom button color */
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #e03e3e; /* Darker shade on hover */
         }
     </style>
 </head>
@@ -45,7 +62,7 @@
     $username = $_SESSION['username'] ?? null;
 
     if (!$username) {
-        echo "<p class='text-danger'>Vui lòng đăng nhập để xem hồ sơ.</p>";
+        echo "<p class='text-danger text-center'>Vui lòng đăng nhập để xem hồ sơ.</p>";
         exit();
     }
 
@@ -74,7 +91,7 @@
             $profileData = [];
         }
     } else {
-        echo "<p class='text-danger'>Không tìm thấy thông tin người dùng.</p>";
+        echo "<p class='text-danger text-center'>Không tìm thấy thông tin người dùng.</p>";
         exit();
     }
     ?>

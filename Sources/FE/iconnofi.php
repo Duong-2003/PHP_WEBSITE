@@ -19,7 +19,7 @@
             padding: 0px;
             position: fixed;
             top: auto;
-            z-index: 2147483644;
+            z-index: 2214748;
             border-radius: 30px;
             height: 56px;
             width: 56px;
@@ -44,7 +44,7 @@
             padding: 0px;
             position: fixed;
             top: auto;
-            z-index: 2147483644;
+            z-index: 214748;
             border-radius: 30px;
             box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px 0px;
             height: 60px;

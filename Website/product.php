@@ -166,12 +166,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
                     <div class="text-center">
                         <?php if ($sp['product_quantity'] > 0) : ?>
-                            <button id="btnModal" type="button" class="btn btn-lg btn-gray btn_buy btn-buy-now" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" class="btn btn-lg  btn_buy btn btn-primary">Thêm vào giỏ hàng</button>
+
+                            <button id="btnModal" type="button" class="btn btn-lg btn-gray btn_buy " data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <i class="fa-solid fa-cart-shopping"></i>Mua ngay
                             </button>
                             
-                            <!-- Nút thêm vào giỏ hàng -->
-                            <button type="button" class="add-to-cart-button btn btn-primary">Thêm vào giỏ hàng</button>
+                          
                         <?php endif; ?>
                     </div>
 
@@ -199,6 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                             contentModal.innerHTML = `Bạn có chắc chắn mua ${productName}<br>Giá: ${totalPrice.toLocaleString('en-US')} <sup>đ</sup>`;
                         });
                     </script>
+                    
                 </div>
             </div>
         </div>

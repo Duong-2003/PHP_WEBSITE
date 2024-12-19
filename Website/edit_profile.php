@@ -10,66 +10,92 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
         }
 
         .profile-header {
-            background-color: #f7f7f7;
+            background-color: #ffffff;
             padding: 20px;
-            border-bottom: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .profile-header img {
             border-radius: 50%;
             width: 120px;
             height: 120px;
+            border: 3px solid #ff4d4d; /* Avatar border */
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #ff4d4d; /* Custom button color */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #e03e3e; /* Darker shade on hover */
+        }
+
+        .text-muted {
+            font-size: 0.9rem;
         }
     </style>
 </head>
 
-<?php
-session_start();
-include('../Sources/FE/top_header.php');
-include('../Sources/FE/header.php');
-include('../connect_SQL/connect.php'); // Kết nối đến cơ sở dữ liệu
-
-$username = $_SESSION['username'] ?? null;
-
-if (!$username) {
-    echo "<p class='text-danger'>Vui lòng đăng nhập để xem hồ sơ.</p>";
-    exit();
-}
-
-// Lấy thông tin người dùng dựa trên username
-$sqlUser = "SELECT * FROM `user` WHERE username = ?";
-$stmtUser = $connect->prepare($sqlUser);
-$stmtUser->bind_param("s", $username);
-$stmtUser->execute();
-$resultUser = $stmtUser->get_result();
-
-if ($resultUser->num_rows > 0) {
-    $userData = $resultUser->fetch_assoc();
-    $user_id = $userData['user_id'];
-    
-    // Lấy thông tin hồ sơ dựa trên user_id
-    $sqlProfile = "SELECT * FROM `profile_user` WHERE user_id = ?";
-    $stmtProfile = $connect->prepare($sqlProfile);
-    $stmtProfile->bind_param("i", $user_id);
-    $stmtProfile->execute();
-    $resultProfile = $stmtProfile->get_result();
-
-    if ($resultProfile->num_rows > 0) {
-        $profileData = $resultProfile->fetch_assoc();
-    } else {
-        $profileData = [];
-    }
-} else {
-    echo "<p class='text-danger'>Không tìm thấy thông tin người dùng.</p>";
-    exit();
-}
-?>
-
 <body>
+    <?php
+    session_start();
+    include('../Sources/FE/top_header.php');
+    include('../Sources/FE/header.php');
+    include('../connect_SQL/connect.php'); // Kết nối đến cơ sở dữ liệu
+
+    $username = $_SESSION['username'] ?? null;
+
+    if (!$username) {
+        echo "<p class='text-danger text-center'>Vui lòng đăng nhập để xem hồ sơ.</p>";
+        exit();
+    }
+
+    // Lấy thông tin người dùng dựa trên username
+    $sqlUser = "SELECT * FROM `user` WHERE username = ?";
+    $stmtUser = $connect->prepare($sqlUser);
+    $stmtUser->bind_param("s", $username);
+    $stmtUser->execute();
+    $resultUser = $stmtUser->get_result();
+
+    if ($resultUser->num_rows > 0) {
+        $userData = $resultUser->fetch_assoc();
+        $user_id = $userData['user_id'];
+
+        // Lấy thông tin hồ sơ dựa trên user_id
+        $sqlProfile = "SELECT * FROM `profile_user` WHERE user_id = ?";
+        $stmtProfile = $connect->prepare($sqlProfile);
+        $stmtProfile->bind_param("i", $user_id);
+        $stmtProfile->execute();
+        $resultProfile = $stmtProfile->get_result();
+
+        if ($resultProfile->num_rows > 0) {
+            $profileData = $resultProfile->fetch_assoc();
+        } else {
+            $profileData = [];
+        }
+    } else {
+        echo "<p class='text-danger text-center'>Không tìm thấy thông tin người dùng.</p>";
+        exit();
+    }
+    ?>
+
     <div class="container mt-5">
         <div class="profile-header">
             <?php
@@ -92,11 +118,13 @@ if ($resultUser->num_rows > 0) {
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Tên người dùng <span class="text-muted">(Bắt buộc)</span></label>
-                        <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($userData['name'] ?? ''); ?>" required>
+                        <input type="text" class="form-control" id="username" name="username" 
+                            value="<?php echo htmlspecialchars($userData['name'] ?? ''); ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email <span class="text-muted">(Không thể thay đổi)</span></label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($userData['email'] ?? ''); ?>" readonly>
+                        <input type="email" class="form-control" id="email" name="email" 
+                            value="<?php echo htmlspecialchars($userData['email'] ?? ''); ?>" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="avatar" class="form-label">Ảnh đại diện</label>
@@ -104,11 +132,13 @@ if ($resultUser->num_rows > 0) {
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Số điện thoại <span class="text-muted">(Tùy chọn)</span></label>
-                        <input type="text" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($profileData['phone'] ?? ''); ?>">
+                        <input type="text" class="form-control" id="phone" name="phone" 
+                            value="<?php echo htmlspecialchars($profileData['phone'] ?? ''); ?>">
                     </div>
                     <div class="mb-3">
                         <label for="dob" class="form-label">Ngày sinh <span class="text-muted">(Tùy chọn)</span></label>
-                        <input type="date" class="form-control" id="dob" name="dob" value="<?php echo htmlspecialchars($profileData['date_of_birth'] ?? ''); ?>">
+                        <input type="date" class="form-control" id="dob" name="dob" 
+                            value="<?php echo htmlspecialchars($profileData['date_of_birth'] ?? ''); ?>">
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label">Giới tính <span class="text-muted">(Tùy chọn)</span></label>
@@ -125,11 +155,13 @@ if ($resultUser->num_rows > 0) {
                     </div>
                     <div class="mb-3">
                         <label for="website" class="form-label">Website <span class="text-muted">(Tùy chọn)</span></label>
-                        <input type="url" class="form-control" id="website" name="website" value="<?php echo htmlspecialchars($profileData['website'] ?? ''); ?>">
+                        <input type="url" class="form-control" id="website" name="website" 
+                            value="<?php echo htmlspecialchars($profileData['website'] ?? ''); ?>">
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Địa chỉ <span class="text-muted">(Tùy chọn)</span></label>
-                        <input type="text" class="form-control" id="address" name="address" value="<?php echo htmlspecialchars($profileData['address'] ?? ''); ?>">
+                        <input type="text" class="form-control" id="address" name="address" 
+                            value="<?php echo htmlspecialchars($profileData['address'] ?? ''); ?>">
                     </div>
                     <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                     <a href="./profile_user.php" class="btn btn-secondary">Quay Về</a>

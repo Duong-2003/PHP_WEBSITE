@@ -50,8 +50,9 @@ a{
     include('../Sources/FE/top_header.php');
     include('../Sources/FE/header.php');
     include('../Sources/FE/iconnofi.php');
-    include('../Sources/FE/cart_count.php');
+   
     include('../Sources/FE/slide.php');
+    include('../Sources/FE/cart_count.php');
     
     include('../Sources/FE/menu.php');
     include('../Sources/FE/sale.php');

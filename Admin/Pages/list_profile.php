@@ -2,6 +2,10 @@
 include('./admin_website.php');
 include('../../connect_SQL/connect.php');
 
+// Khởi tạo biến cho thông báo
+$notification = '';
+$profileData = [];
+
 // Kiểm tra xem user_id có tồn tại trong bảng user không
 if (isset($_POST['user_id'])) {
     $userId = (int)$_POST['user_id'];
@@ -14,38 +18,27 @@ if (isset($_POST['user_id'])) {
     $resultCheckUser = $stmtCheckUser->get_result();
 
     if ($resultCheckUser->num_rows > 0) {
-        // Kiểm tra sự tồn tại của hồ sơ trong bảng profile_user
-        $sqlCheckProfile = "SELECT * FROM profile_user WHERE user_id = ?";
+        // Nếu user_id tồn tại, kiểm tra sự tồn tại của hồ sơ trong bảng profile_user
+        $sqlCheckProfile = "SELECT p.*, u.name AS user_name FROM profile_user p LEFT JOIN user u ON p.user_id = ? WHERE p.user_id = ?";
         $stmtCheckProfile = $connect->prepare($sqlCheckProfile);
-        $stmtCheckProfile->bind_param("i", $userId);
+        $stmtCheckProfile->bind_param("ii", $userId, $userId);
         $stmtCheckProfile->execute();
         $resultCheckProfile = $stmtCheckProfile->get_result();
 
         if ($resultCheckProfile->num_rows > 0) {
             // Nếu hồ sơ đã tồn tại, hiển thị thông tin hồ sơ
             $profileData = $resultCheckProfile->fetch_assoc();
-            echo "<div class='alert alert-info'>Hồ sơ đã tồn tại cho user_id: $userId</div>";
+            $notification = "<div class='alert alert-info'>Hồ sơ đã tồn tại cho user_id: $userId</div>";
         } else {
-            // Nếu hồ sơ chưa tồn tại, thêm hồ sơ vào bảng profile_user
-            $sqlInsertProfile = "INSERT INTO profile_user (user_id, date_of_birth, gender, bio, website, phone, address) VALUES (?, NULL, NULL, NULL, NULL, NULL, NULL)";
-            $stmtInsertProfile = $connect->prepare($sqlInsertProfile);
-            $stmtInsertProfile->bind_param("i", $userId);
-
-            if ($stmtInsertProfile->execute()) {
-                echo "<div class='alert alert-success'>Thêm hồ sơ thành công cho user_id: $userId</div>";
-            } else {
-                echo "<div class='alert alert-danger'>Lỗi khi thêm hồ sơ: " . htmlspecialchars($stmtInsertProfile->error) . "</div>";
-            }
-
-            // Giải phóng biến không cần thiết
-            $stmtInsertProfile->close();
+            // Nếu hồ sơ chưa tồn tại, thông báo không tìm thấy
+            $notification = "<div class='alert alert-warning'>Không tìm thấy hồ sơ cho user_id: $userId.</div>";
         }
 
         // Giải phóng biến không cần thiết
         $stmtCheckProfile->close();
     } else {
         // Thông báo nếu user_id không tồn tại
-        echo "<div class='alert alert-warning'>user_id không tồn tại trong bảng user.</div>";
+        $notification = "<div class='alert alert-warning'>user_id không tồn tại trong bảng user.</div>";
     }
 
     // Giải phóng biến không cần thiết
@@ -55,12 +48,18 @@ if (isset($_POST['user_id'])) {
 
 <div class="container">
     <h1 class="text-center mb-4">Danh Sách Hồ Sơ Người Dùng</h1>
+    
     <div class="text-end mb-3">
         <form method="POST" class="d-inline-block">
             <input type="number" name="user_id" placeholder="Nhập ID Người Dùng" class="form-control d-inline-block" style="width: auto;" required>
-            <button type="submit" class="btn btn-primary">Thêm Hồ Sơ</button>
+            <button type="submit" class="btn btn-primary">Tìm Hồ Sơ</button>
         </form>
     </div>
+
+    <div>
+        <?= $notification ?>
+    </div>
+
     <table id="danhsach" class="table table-striped table-bordered table-hover">
         <thead>
             <tr style="font-size: larger;">
@@ -80,64 +79,72 @@ if (isset($_POST['user_id'])) {
         </thead>
         <tbody>
             <?php
-            // Lấy danh sách hồ sơ người dùng với phân trang
-            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Lấy số trang từ URL
-            $limit = 10; // Số bản ghi trên mỗi trang
-            $offset = ($page - 1) * $limit; // Tính toán offset
+            // Nếu không có tìm kiếm, hiển thị tất cả hồ sơ
+            if (empty($_POST['user_id'])) {
+                // Lấy danh sách hồ sơ người dùng với phân trang
+                $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Lấy số trang từ URL
+                $limit = 10; // Số bản ghi trên mỗi trang
+                $offset = ($page - 1) * $limit; // Tính toán offset
 
-            // Lấy danh sách hồ sơ
-            $sqlProfiles = "
-                SELECT p.*, u.name AS user_name FROM profile_user p
-                LEFT JOIN user u ON p.user_id = u.user_id
-                LIMIT ? OFFSET ?
-            ";
-            $stmt = $connect->prepare($sqlProfiles);
-            $stmt->bind_param("ii", $limit, $offset);
-            $stmt->execute();
-            $resultProfiles = $stmt->get_result();
+                // Lấy danh sách hồ sơ
+                $sqlProfiles = "
+                    SELECT p.*, u.name AS user_name FROM profile_user p
+                    LEFT JOIN user u ON p.user_id = u.user_id
+                    LIMIT ? OFFSET ?
+                ";
+                $stmt = $connect->prepare($sqlProfiles);
+                $stmt->bind_param("ii", $limit, $offset);
+                $stmt->execute();
+                $resultProfiles = $stmt->get_result();
 
-            $danhsachProfiles = [];
-
-            // Chuyển dữ liệu thành mảng
-            while ($row = $resultProfiles->fetch_assoc()) {
-                $danhsachProfiles[] = array(
-                    'profile_id' => (int) $row['profile_id'],
-                    'user_id' => (int) $row['user_id'],
-                    'user_name' => htmlspecialchars($row['user_name']),
-                    'date_of_birth' => htmlspecialchars($row['date_of_birth']),
-                    'gender' => htmlspecialchars($row['gender']),
-                    'bio' => htmlspecialchars($row['bio']),
-                    'website' => htmlspecialchars($row['website']),
-                    'created_at' => htmlspecialchars($row['created_at']),
-                    'updated_at' => htmlspecialchars($row['updated_at']),
-                    'phone' => htmlspecialchars($row['phone']),
-                    'address' => htmlspecialchars($row['address']),
-                );
-            }
-
-            // Giải phóng biến không cần thiết
-            $stmt->close();
-
-            foreach ($danhsachProfiles as $profile) {
-                echo "<tr>
-                    <td>{$profile['profile_id']}</td>
-                    <td>{$profile['user_id']}</td>
-                    <td>{$profile['user_name']}</td>
-                    <td>{$profile['date_of_birth']}</td>
-                    <td>{$profile['gender']}</td>
-                    <td>{$profile['bio']}</td>
-                    <td>{$profile['website']}</td>
-                    <td>{$profile['phone']}</td>
-                    <td>{$profile['address']}</td>
-                    <td>{$profile['created_at']}</td>
-                    <td>{$profile['updated_at']}</td>
-                    <td>
-                        <div class='d-flex justify-content-center'>
-                            <a href='../Includes/BE/delete_SQL.php?key=profile_id&table=profile_user&datakey=" . urlencode($profile['profile_id']) . "' class='btn btn-danger mx-1'>Xóa</a>
-                            <a href='form_profiles.php?datakey=" . urlencode($profile['profile_id']) . "' class='btn btn-warning mx-1'>Sửa</a>
-                        </div>
-                    </td>
-                </tr>";
+                while ($row = $resultProfiles->fetch_assoc()) {
+                    echo "<tr>
+                        <td>" . htmlspecialchars($row['profile_id']) . "</td>
+                        <td>" . htmlspecialchars($row['user_id']) . "</td>
+                        <td>" . htmlspecialchars($row['user_name']) . "</td>
+                        <td>" . htmlspecialchars($row['date_of_birth']) . "</td>
+                        <td>" . htmlspecialchars($row['gender']) . "</td>
+                        <td>" . htmlspecialchars($row['bio']) . "</td>
+                        <td>" . htmlspecialchars($row['website']) . "</td>
+                        <td>" . htmlspecialchars($row['phone']) . "</td>
+                        <td>" . htmlspecialchars($row['address']) . "</td>
+                        <td>" . htmlspecialchars($row['created_at']) . "</td>
+                        <td>" . htmlspecialchars($row['updated_at']) . "</td>
+                        <td>
+                            <div class='d-flex justify-content-center'>
+                                <a href='../Includes/BE/delete_SQL.php?key=profile_id&table=profile_user&datakey=" . urlencode($row['profile_id']) . "' class='btn btn-danger mx-1'>Xóa</a>
+                                <a href='form_profiles.php?datakey=" . urlencode($row['profile_id']) . "' class='btn btn-warning mx-1'>Sửa</a>
+                            </div>
+                        </td>
+                    </tr>";
+                }
+                $stmt->close();
+            } else {
+                // Hiển thị thông tin hồ sơ nếu tìm thấy
+                if (!empty($profileData)) {
+                    echo "<tr>
+                        <td>" . htmlspecialchars($profileData['profile_id']) . "</td>
+                        <td>" . htmlspecialchars($profileData['user_id']) . "</td>
+                        <td>" . htmlspecialchars($profileData['user_name']) . "</td>
+                        <td>" . htmlspecialchars($profileData['date_of_birth']) . "</td>
+                        <td>" . htmlspecialchars($profileData['gender']) . "</td>
+                        <td>" . htmlspecialchars($profileData['bio']) . "</td>
+                        <td>" . htmlspecialchars($profileData['website']) . "</td>
+                        <td>" . htmlspecialchars($profileData['phone']) . "</td>
+                        <td>" . htmlspecialchars($profileData['address']) . "</td>
+                        <td>" . htmlspecialchars($profileData['created_at']) . "</td>
+                        <td>" . htmlspecialchars($profileData['updated_at']) . "</td>
+                        <td>
+                            <div class='d-flex justify-content-center'>
+                                <a href='../Includes/BE/delete_SQL.php?key=profile_id&table=profile_user&datakey=" . urlencode($profileData['profile_id']) . "' class='btn btn-danger mx-1'>Xóa</a>
+                                <a href='form_profiles.php?datakey=" . urlencode($profileData['profile_id']) . "' class='btn btn-warning mx-1'>Sửa</a>
+                            </div>
+                        </td>
+                    </tr>";
+                } else {
+                    // Nếu không tìm thấy hồ sơ
+                    echo "<tr><td colspan='12' class='text-center'>Không có hồ sơ nào được tìm thấy.</td></tr>";
+                }
             }
             ?>
         </tbody>

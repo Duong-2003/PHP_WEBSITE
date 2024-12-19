@@ -5,37 +5,67 @@
     <meta charset="utf-8">
     <title>Sửa Giảm Giá</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.cloudflare.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa; /* Light background */
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff; /* White background for the form */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        h1 {
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #343a40; /* Darker text color */
+        }
+        .btn-primary {
+            background-color: #007bff; /* Bootstrap primary color */
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+        .form-label {
+            font-weight: 600; /* Bold labels */
+        }
+        .form-control, .form-select {
+            border-radius: 5px;
+        }
+    </style>
 </head>
 
 <body>
 
     <?php
-      
       include('../../connect_SQL/connect.php');
-      
 
-    // Kiểm tra xem sale_id có được truyền vào không
-    if (isset($_GET['datakey'])) {
-        $sale_id = $_GET['datakey'];
+      // Kiểm tra xem sale_id có được truyền vào không
+      if (isset($_GET['datakey'])) {
+          $sale_id = $_GET['datakey'];
 
-        // Lấy thông tin giảm giá từ cơ sở dữ liệu
-        $sql = "SELECT * FROM sale WHERE sale_id = ?";
-        $stmt = $connect->prepare($sql);
-        $stmt->bind_param("i", $sale_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $sale = $result->fetch_assoc();
+          // Lấy thông tin giảm giá từ cơ sở dữ liệu
+          $sql = "SELECT * FROM sale WHERE sale_id = ?";
+          $stmt = $connect->prepare($sql);
+          $stmt->bind_param("i", $sale_id);
+          $stmt->execute();
+          $result = $stmt->get_result();
+          $sale = $result->fetch_assoc();
 
-        if (!$sale) {
-            echo "<div class='alert alert-danger'>Không tìm thấy giảm giá.</div>";
-            exit;
-        }
-    } else {
-        echo "<div class='alert alert-danger'>Không có mã giảm giá nào được cung cấp.</div>";
-        exit;
-    }
+          if (!$sale) {
+              echo "<div class='alert alert-danger'>Không tìm thấy giảm giá.</div>";
+              exit;
+          }
+      } else {
+          echo "<div class='alert alert-danger'>Không có mã giảm giá nào được cung cấp.</div>";
+          exit;
+      }
     ?>
 
     <div class="container">
