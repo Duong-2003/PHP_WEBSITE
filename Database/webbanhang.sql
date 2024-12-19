@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 18, 2024 lúc 04:44 PM
+-- Thời gian đã tạo: Th12 19, 2024 lúc 04:33 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -33,8 +33,33 @@ CREATE TABLE `comments` (
   `user_name` varchar(255) NOT NULL,
   `comment` text NOT NULL,
   `avatar` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `comments`
+--
+
+INSERT INTO `comments` (`comment_id`, `product_id`, `user_name`, `comment`, `avatar`, `created_at`) VALUES
+(1, 1, 'admin', '312', NULL, '2024-12-19 22:17:11'),
+(2, 1, 'admin', '312', NULL, '2024-12-19 22:17:16'),
+(3, 1, 'admin', 'ewq', NULL, '2024-12-19 22:21:18'),
+(4, 1, 'admin', 'ewq', NULL, '2024-12-19 22:22:48'),
+(5, 1, 'admin', 'ewq', NULL, '2024-12-19 22:23:02'),
+(6, 1, 'admin', 'ewq', NULL, '2024-12-19 22:23:31'),
+(7, 1, 'admin', 'ewqe', NULL, '2024-12-19 22:24:56'),
+(8, 1, 'admin', 'ewqe', NULL, '2024-12-19 22:25:13'),
+(9, 1, 'admin', 'ewqedư', NULL, '2024-12-19 22:25:50'),
+(10, 1, 'admin', 'ewqedưdư', NULL, '2024-12-19 22:25:55'),
+(11, 1, 'admin', '321', NULL, '2024-12-19 22:29:21'),
+(12, 101, 'admin', 'eq', NULL, '2024-12-19 22:29:59'),
+(13, 101, 'admin', 'eqw', NULL, '2024-12-19 22:31:33'),
+(14, 101, 'admin', 'eqwe', NULL, '2024-12-19 22:31:39'),
+(15, 100, 'admin', 'ew', NULL, '2024-12-19 22:31:49'),
+(16, 100, 'admin', 'xín\r\n', NULL, '2024-12-19 22:32:42'),
+(17, 100, 'admin', 'xín\r\new', NULL, '2024-12-19 22:32:59'),
+(18, 100, 'admin', 'ewq', NULL, '2024-12-19 22:33:03'),
+(19, 100, 'admin', 'okeoke\r\n', NULL, '2024-12-19 22:33:08');
 
 -- --------------------------------------------------------
 
@@ -61,13 +86,22 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`order_id`, `user_id`, `product_id`, `timeorder`, `order_status`, `order_price`, `order_quantity`, `created_at`, `updated_at`, `total_price`, `payment_status`) VALUES
-(2, 14, 101, '2024-10-17', 'Đang chờ', '50000', 1, '2024-10-17 14:17:20', '2024-10-17 14:17:20', 0.00, 0),
-(3, 14, 109, '2024-10-17', 'Đang chờ', '100000', 1, '2024-10-17 15:01:15', '2024-10-17 15:01:15', 0.00, 0),
-(4, 14, 110, '2024-11-13', 'Đang chờ', '29000', 1, '2024-11-13 12:39:44', '2024-11-13 12:39:44', 0.00, 0),
-(5, 14, 99, '2024-11-13', 'Đang chờ', '20000', 1, '2024-11-13 12:46:04', '2024-11-13 12:46:04', 0.00, 0),
-(6, 14, 102, '2024-11-14', 'Đang chờ', '100000', 1, '2024-11-14 03:21:07', '2024-11-14 03:21:07', 0.00, 0),
-(7, 14, 109, '2024-11-14', 'Đang chờ', '100000', 1, '2024-11-14 03:23:00', '2024-11-14 03:23:00', 0.00, 0),
-(8, 14, 108, '2024-12-18', 'Đang chờ', '29000', 1, '2024-12-18 13:12:25', '2024-12-18 13:12:25', 0.00, 0);
+(2, 14, 101, '2024-10-17', 'Đã hủy', '50000', 1, '2024-10-17 14:17:20', '2024-12-19 13:14:54', 0.00, 0),
+(3, 14, 109, '2024-10-17', 'Đã hủy', '100000', 1, '2024-10-17 15:01:15', '2024-12-19 13:15:34', 0.00, 0),
+(4, 14, 110, '2024-11-13', 'Đã hủy', '29000', 1, '2024-11-13 12:39:44', '2024-12-19 13:15:50', 0.00, 0),
+(5, 14, 99, '2024-11-13', 'Đã hủy', '20000', 1, '2024-11-13 12:46:04', '2024-12-19 13:16:02', 0.00, 0),
+(6, 14, 102, '2024-11-14', 'Đã hủy', '100000', 1, '2024-11-14 03:21:07', '2024-12-19 13:16:43', 0.00, 0),
+(7, 14, 109, '2024-11-14', 'Đã hủy', '100000', 1, '2024-11-14 03:23:00', '2024-12-19 13:17:14', 0.00, 0),
+(8, 14, 108, '2024-12-18', 'Đã hủy', '29000', 1, '2024-12-18 13:12:25', '2024-12-19 13:17:39', 0.00, 0),
+(9, 14, 101, '2024-12-19', 'Đã hủy', '50000', 1, '2024-12-19 12:38:41', '2024-12-19 13:17:53', 0.00, 0),
+(10, 14, 101, '2024-12-19', 'Đã hủy', '50000', 1, '2024-12-19 13:18:26', '2024-12-19 13:18:30', 0.00, 0),
+(11, 14, 101, '2024-12-19', 'Đã hủy', '50000', 1, '2024-12-19 13:18:40', '2024-12-19 13:19:33', 0.00, 0),
+(12, 14, 99, '2024-12-19', 'Đã hủy', '20000', 1, '2024-12-19 13:20:41', '2024-12-19 13:21:13', 0.00, 0),
+(13, 14, 99, '2024-12-19', 'Đã hủy', '20000', 1, '2024-12-19 13:21:25', '2024-12-19 13:21:30', 0.00, 0),
+(14, 14, 99, '2024-12-19', 'Đã hủy', '20000', 1, '2024-12-19 13:22:19', '2024-12-19 13:22:24', 0.00, 0),
+(15, 14, 99, '2024-12-19', 'Đã hủy', '20000', 1, '2024-12-19 13:22:59', '2024-12-19 13:23:04', 0.00, 0),
+(16, 14, 108, '2024-12-19', 'Đang chờ', '29000', 1, '2024-12-19 13:23:32', '2024-12-19 13:23:32', 0.00, 0),
+(17, 14, 108, '2024-12-19', 'Đang chờ', '29000', 1, '2024-12-19 13:44:56', '2024-12-19 13:44:56', 0.00, 0);
 
 -- --------------------------------------------------------
 
@@ -249,8 +283,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `name`, `password`, `email`, `role`, `avatar`, `created_at`, `updated_at`, `status`, `last_login`) VALUES
-(14, 'admin', 'Nguyễn Bình Dương', '$2y$10$u3C3h0HC9sYFDn8iEgjlO.e6IJi6v6g0yeio1BAy4jmnbVMs1RU02', 'anhtustyle2003@gmail.com', 1, '../Assets/img/index/avatar_671113139c969_admin.png', '2024-10-09 16:41:56', '2024-12-18 12:59:41', 1, '2024-12-18 12:59:41'),
-(15, 'duong2003', 'Nguyen Van A', '$2y$10$5ctGPNz3KRsCCKvt8.YYY.bbEONvxGl7HvW2lpWAsK.qyZZ0GMsuq', 'duongtk1111@gmail.com', 0, NULL, '2024-10-09 16:45:05', '2024-10-10 03:48:38', 1, '2024-10-09 16:49:02');
+(14, 'admin', 'Nguyễn Bình Dương', '$2y$10$u3C3h0HC9sYFDn8iEgjlO.e6IJi6v6g0yeio1BAy4jmnbVMs1RU02', 'anhtustyle2003@gmail.com', 1, '../Assets/img/index/avatar_671113139c969_admin.png', '2024-10-09 16:41:56', '2024-12-19 12:12:02', 1, '2024-12-19 12:12:02');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -328,13 +361,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT cho bảng `payments`
@@ -352,7 +385,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT cho bảng `profile_user`
 --
 ALTER TABLE `profile_user`
-  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `sale`
@@ -369,12 +402,6 @@ ALTER TABLE `user`
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
-
---
--- Các ràng buộc cho bảng `comments`
---
-ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `order`
