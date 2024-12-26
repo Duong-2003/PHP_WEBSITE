@@ -11,120 +11,126 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <title>Register</title>
 
- 
-
   <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    #ctn {
+      background-image: url(../Assets/img/index/bg_sp_noibat.jpg);
+      background-size: cover;
+      background-position: center;
+      padding: 30px 0;
+    }
+
     .error>p {
-      font-size: 20px;
+      font-size: 18px;
       text-align: center;
       font-weight: 600;
     }
 
-    .account-box-shadow .account-content .auth-block__menu-list {
+    .account-box-shadow {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    .account-content .auth-block__menu-list {
       list-style: none;
       display: flex;
-      height: 50px;
+      justify-content: space-between;
       border-bottom: 1px solid #eee;
+      margin-bottom: 20px;
     }
 
-    .account-box-shadow .account-content .auth-block__menu-list li {
-      flex: 1 1;
+    .auth-block__menu-list li a {
+      flex: 1;
       text-align: center;
-      
-      position: relative;
+      padding: 10px;
+      font-size: 16px;
+      color: #999;
+      transition: color 0.3s;
     }
 
-    .account-box-shadow .account-content .auth-block__menu-list li.active:before {
-      content: "";
-      position: absolute;
-      height: 1px;
-      left: 30px;
-      right: 30px;
-      bottom: -1px;
-      background-color: #9c8350;
-    }
-
-    .account-box-shadow .account-content .auth-block__menu-list li.active a {
+    .auth-block__menu-list li.active a {
       font-weight: 600;
       color: #303846;
     }
 
-    .account-box-shadow .account-content .auth-block__menu-list li a {
-      display: flex;
-      height: 100%;
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      line-height: 22px;
-      color: #999;
+    .auth-block__menu-list li a:hover {
+      color: #9c8350;
     }
 
-    .page-login .btn-blues {
-      padding: 0;
-      height: 40px;
-      font-weight: 700;
-      font-size: 13px;
-      width: 100%;
+    .btn-blues {
+      background-color: #9c8350;
+      color: white;
+      border: none;
       border-radius: 4px;
-      background-color: #999;
+      padding: 10px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .btn-blues:hover {
+      background-color: #7a663e;
+    }
+
+    .form-signup .form-control {
+      height: 45px;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      box-shadow: none;
+    }
+
+    .form-signup label {
+      font-weight: 600;
     }
 
     .login--notes {
       text-align: center;
       color: #999;
-      font-size: 12px;
-      margin-top: 10px;
-      line-height: 1.1;
-    }
-
-    .page-login .form-group label {
-      font-weight: 600;
       font-size: 14px;
-      text-transform: uppercase;
-      margin-bottom: 5px;
+      margin-top: 10px;
     }
 
-    .page-login input[type="text"],
-    .page-login input[type="email"],
-    .page-login input[type="password"] {
-      background: #fafafa;
-      height: 40px;
-      padding: 0 15px;
-      border: 1px solid #ececec;
-      outline: none;
-      box-shadow: none;
-    }
     .line-break {
-    text-align: center;
-}
-.line-break span {
-    display: inline-block;
-    font-size: 13px;
-    color: #999;
-    padding: 1px 10px;
-    border-radius: 15px;
-    border: 1px solid #eee;
-    background-color: #fff;
-    position: relative;
-    z-index: 1;
-}
-a.btn-link-style {
-    margin-top: 0;
-    color: #9c8350;
-    font-size: 13px;
-    font-weight: normal;
-}
-#ctn{
-  background-image: url(../Assets/img/index/bg_sp_noibat.jpg);
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .line-break span {
+      display: inline-block;
+      font-size: 14px;
+      color: #999;
+      padding: 5px 10px;
+      border-radius: 15px;
+      border: 1px solid #eee;
+      background-color: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .social-login img {
+      max-width: 100%;
+      height: auto;
+      transition: transform 0.3s;
+    }
+
+    .social-login img:hover {
+      transform: scale(1.05);
+    }
+    button#registerSubmit {
+    background-color: bisque;
 }
   </style>
 </head>
 
 <body>
 
-  <?php include( '../Sources/FE/top_header.php'); ?>
-  <?php include( '../Sources/FE/header.php'); ?>
+  <?php include('../Sources/FE/top_header.php'); ?>
+  <?php include('../Sources/FE/header.php'); ?>
 
   <div class="container py-5" id="ctn">
     <div class="row justify-content-md-center">
@@ -164,7 +170,7 @@ a.btn-link-style {
                     </fieldset>
                     <fieldset class="form-group margin-bottom-10">
                       <label>Họ và tên của bạn<span style="color: red;">*</span></label>
-                      <input id="name" placeholder="Tài khoản bạn muốn đăng ký" type="text" class="form-control" name="name" required>
+                      <input id="name" placeholder="Họ và tên của bạn" type="text" class="form-control" name="name" required>
                     </fieldset>
                     <fieldset class="form-group margin-bottom-0">
                       <label>Mật khẩu<span style="color: red;">*</span></label>
@@ -174,17 +180,14 @@ a.btn-link-style {
                       <label>Nhập lại mật khẩu<span style="color: red;">*</span></label>
                       <input name="resetpass" placeholder="Nhập lại mật khẩu" id="resetpass" type="password" class="form-control" required>
                     </fieldset>
-                    <!-- <fieldset class="form-group margin-bottom-0">
-                      <label>Địa chỉ<span style="color: red;">*</span></label>
-                      <input id="address" placeholder="Địa chỉ của bạn" type="text" class="form-control" name="address" required>
-                    </fieldset> -->
+
                     <div class="clearfix"></div>
-                    
-                  <p class="text-right recover">
-                    <a href="#" class="btn-link-style" onclick="showRecoverPasswordForm();" title="Quên mật khẩu?">Quên mật khẩu?</a>
-                  </p>
-                    <div class="pull-xs-left text-center" style="margin-top: 15px;">
-                      <button class="btn btn-style btn-blues" type="submit" id="registerSubmit" name="submit">Đăng ký</button>
+
+                    <p class="text-right recover">
+                      <a href="#" class="btn-link-style" onclick="showRecoverPasswordForm();" title="Quên mật khẩu?">Quên mật khẩu?</a>
+                    </p>
+                    <div class="text-center" style="margin-top: 15px;">
+                      <button class="btn btn-blues" type="submit" id="registerSubmit" name="submit">Đăng ký</button>
                     </div>
                     <p class="login--notes">Chúng tôi cam kết bảo mật thông tin của bạn.</p>
                   </div>
@@ -195,42 +198,6 @@ a.btn-link-style {
                   <span>hoặc đăng ký qua</span>
                 </div>
                 <div class="social-login text-center">
-                  <script>
-                    function loginFacebook() {
-                      var a = {
-                        client_id: "947410958642584",
-                        redirect_uri: "https://store.mysapo.net/account/facebook_account_callback",
-                        state: JSON.stringify({ redirect_url: window.location.href }),
-                        scope: "email",
-                        response_type: "code"
-                      };
-                      var b = "https://www.facebook.com/v3.2/dialog/oauth" + encodeURIParams(a, !0);
-                      window.location.href = b;
-                    }
-
-                    function loginGoogle() {
-                      var a = {
-                        client_id: "997675985899-pu3vhvc2rngfcuqgh5ddgt7mpibgrasr.apps.googleusercontent.com",
-                        redirect_uri: "https://store.mysapo.net/account/google_account_callback",
-                        scope: "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
-                        access_type: "online",
-                        state: JSON.stringify({ redirect_url: window.location.href }),
-                        response_type: "code"
-                      };
-                      var b = "https://accounts.google.com/o/oauth2/v2/auth" + encodeURIParams(a, !0);
-                      window.location.href = b;
-                    }
-
-                    function encodeURIParams(a, b) {
-                      var c = [];
-                      for (var d in a)
-                        if (a.hasOwnProperty(d)) {
-                          var e = a[d];
-                          null != e && c.push(encodeURIComponent(d) + "=" + encodeURIComponent(e));
-                        }
-                      return 0 == c.length ? "" : (b ? "?" : "") + c.join("&");
-                    }
-                  </script>
                   <a href="javascript:void(0)" class="social-login--facebook" onclick="loginFacebook()">
                     <img width="129px" height="37px" alt="facebook-login-button" src="//bizweb.dktcdn.net/assets/admin/images/login/fb-btn.svg">
                   </a>
@@ -248,7 +215,7 @@ a.btn-link-style {
 
   <?php 
   include('../Sources/FE/footer_save.php');
-  include( "../Sources/FE/footer.php"); 
+  include("../Sources/FE/footer.php"); 
    ?>
 
 </body>

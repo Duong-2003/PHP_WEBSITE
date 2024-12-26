@@ -10,82 +10,96 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <title>Quên Mật Khẩu</title>
 
-
-
   <style>
-    
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+    }
 
-  
+    #ctn {
+      background-image: url(../Assets/img/index/bg_sp_noibat.jpg);
+      background-size: cover;
+      background-position: center;
+      padding: 30px 0;
+    }
+
+    .account-box-shadow {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
 
     .error>p {
-      font-size: 20px;
+      font-size: 18px;
       text-align: center;
       font-weight: 600;
     }
 
-    .account-box-shadow .account-content .auth-block__menu-list {
+    .auth-block__menu-list {
       list-style: none;
       display: flex;
-      height: 50px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .account-box-shadow .account-content .auth-block__menu-list li {
-      flex: 1 1;
-      text-align: center;
-     
-      position: relative;
-    }
-
-    .account-box-shadow .account-content .auth-block__menu-list li.active:before {
-      content: "";
-      position: absolute;
-      height: 1px;
-      left: 30px;
-      right: 60px;
-      bottom: -1px;
-      background-color: #9c8350;
-    }
-
-    .account-box-shadow .account-content .auth-block__menu-list li.active a {
-      font-weight: 600;
-      color: #303846;
-    }
-
-    .account-box-shadow .account-content .auth-block__menu-list li a {
-      display: flex;
-      height: 100%;
-      width: 100%;
-      align-items: center;
       justify-content: center;
-      font-size: 20px;
-      line-height: 22px;
-      color: #999;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 20px;
     }
 
-    .page-login .btn-blues {
-      padding: 0;
-      height: 40px;
-      font-weight: 700;
-      font-size: 13px;
-      width: 100%;
+    .auth-block__menu-list li {
+      margin: 0 15px;
+    }
+
+    .auth-block__menu-list li a {
+      font-size: 20px;
+      color: #999;
+      transition: color 0.3s;
+    }
+
+    .auth-block__menu-list li a:hover {
+      color: #9c8350;
+    }
+
+    .btn-blues {
+      background-color: #9c8350;
+      color: white;
+      border: none;
       border-radius: 4px;
-      background-color: #999;
+      padding: 10px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .btn-blues:hover {
+      background-color: #7a663e;
+    }
+
+    .form-control {
+      height: 45px;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      box-shadow: none;
+    }
+
+    .form-group label {
+      font-weight: 600;
     }
 
     .login--notes {
       text-align: center;
       color: #999;
-      font-size: 12px;
+      font-size: 14px;
       margin-top: 10px;
-      line-height: 1.1;
+    }
+
+    .line-break {
+      text-align: center;
+      margin: 20px 0;
     }
 
     .line-break span {
       display: inline-block;
-      font-size: 13px;
+      font-size: 14px;
       color: #999;
-      padding: 1px 10px;
+      padding: 5px 10px;
       border-radius: 15px;
       border: 1px solid #eee;
       background-color: #fff;
@@ -93,28 +107,17 @@
       z-index: 1;
     }
 
-    .page-login .form-group label {
-      font-weight: 600;
-      font-size: 14px;
-      text-transform: uppercase;
-      margin-bottom: 5px;
+    .social-login img {
+      max-width: 100%;
+      height: auto;
+      transition: transform 0.3s;
     }
 
-    .page-login input[type="text"],
-    .page-login input[type="email"],
-    .page-login input[type="password"] {
-      background: #fafafa;
-      height: 40px;
-      padding: 0 15px;
-      border: 1px solid #ececec;
-      outline: none;
-      box-shadow: none;
+    .social-login img:hover {
+      transform: scale(1.05);
     }
-    .line-break {
-    text-align: center;
-}
-#ctn{
-  background-image: url(../Assets/img/index/bg_sp_noibat.jpg);
+    button#loginSubmit {
+    background-color: bisque;
 }
   </style>
 </head>
@@ -123,8 +126,7 @@
   <?php include('../Sources/FE/top_header.php'); ?>
   <?php include('../Sources/FE/header.php'); ?>
 
-  
- <div class="container py-5" id="ctn">
+  <div class="container py-5" id="ctn">
     <div class="row justify-content-md-center">
       <div class="col-lg-7 col-md-12">
         <div class="page-login account-box-shadow">
@@ -142,14 +144,9 @@
                 <li class="active">
                   <a href="../Website/reset_password.php" title="Quên mật khẩu">Quên mật khẩu</a>
                 </li>
-               
               </ul>
               <div id="nd-resetpass">
-              <form action="<?='../Sources/BE/reset_pass_process.php' ?>" method="post">
-                  <input name="FormType" type="hidden" value="customer_login">
-                  <input name="utf8" type="hidden" value="true">
-                  <input name="ReturnUrl" type="hidden" value="username">
-
+                <form action="<?='../Sources/BE/reset_pass_process.php' ?>" method="post">
                   <fieldset class="form-group margin-bottom-10">
                     <label>Tài khoản<span style="color: red;">*</span></label>
                     <input placeholder="Tài khoản của bạn" id="username" type="text" class="form-control" name="username" required>
@@ -165,26 +162,11 @@
                     <input type="password" placeholder="Mật khẩu mới" id="resetpassword" class="form-control" name="resetpassword" required>
                   </fieldset>
 
-                 
                   <div class="text-center" style="margin-top: 15px;">
-                    <button class="btn btn-style btn-blues" type="submit" id="loginSubmit" name="submit">Thay đổi</button>
+                    <button class="btn btn-blues" type="submit" id="loginSubmit" name="submit">Thay đổi</button>
                   </div>
 
-                  <p class="login--notes">Chúng tôi cam kết bảo mật và sẽ không bao giờ chia sẻ thông tin của bạn.</p>
-                </form>
-
-                <div class="line-break">
-                  <span>hoặc đăng nhập qua</span>
-                </div>
-                <div class="social-login text-center">
-                 
-             
-                  <a href="javascript:void(0)" class="social-login--facebook" onclick="loginFacebook()">
-                    <img width="129px" height="37px" alt="facebook-login-button" src="//bizweb.dktcdn.net/assets/admin/images/login/fb-btn.svg">
-                  </a>
-                  <a href="javascript:void(0)" class="social-login--google" onclick="loginGoogle()">
-                    <img width="129px" height="37px" alt="google-login-button" src="//bizweb.dktcdn.net/assets/admin/images/login/gp-btn.svg">
-                  </a>
+                  
                 </div>
               </div>
 
@@ -193,16 +175,13 @@
                   Bạn quên mật khẩu? Nhập địa chỉ email để lấy lại mật khẩu qua email.
                 </div>
                 <form method="post" action="/account/recover" id="recover_customer_password" accept-charset="UTF-8" class="has-validation-callback">
-                  <input name="FormType" type="hidden" value="recover_customer_password">
-                  <input name="utf8" type="hidden" value="true">
-                  
                   <fieldset class="form-group">
                     <label>Tài khoản<span class="required">*</span></label>
                     <input id="recover_account" placeholder="Nhập tài khoản" type="text" class="form-control" name="account" required>
                   </fieldset>
 
                   <div class="action_bottom text-center">
-                    <button class="btn btn-style btn-blues" style="margin-top: 10px;" type="submit" value="Lấy lại mật khẩu">Lấy lại mật khẩu</button>
+                    <button class="btn btn-blues" style="margin-top: 10px;" type="submit" value="Lấy lại mật khẩu">Lấy lại mật khẩu</button>
                   </div>
                   <div class="text-login text-center">
                     <p>Quay lại <a href="javascript:;" class="btn-link-style btn-register" onclick="hideRecoverPasswordForm();" title="Quay lại">tại đây.</a></p>
@@ -215,6 +194,7 @@
       </div>
     </div>
   </div>
+  
   <?php 
   include('../Sources/FE/footer_save.php');
   include("../Sources/FE/footer.php");  
