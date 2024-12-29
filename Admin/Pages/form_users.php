@@ -56,7 +56,7 @@ $user = $result->fetch_assoc();
       <input type="hidden" name="user_id" value="<?= htmlspecialchars($user['user_id']) ?>">
       <input type="hidden" name="current_password" value="<?= htmlspecialchars($user['password']) ?>">
       <div class="mb-3">
-        <label class="form-label">Tên nguoi dùng <span class="text-danger">*</span></label>
+        <label class="form-label">Tên người dùng <span class="text-danger">*</span></label>
         <input value="<?= htmlspecialchars($user['name']) ?>" name="name" type="text" class="form-control" required>
       </div>
       <div class="mb-3">

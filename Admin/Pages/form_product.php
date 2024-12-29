@@ -117,7 +117,7 @@
               <td><?= number_format($sp['product_price'], 0, ',', '.') ?> VNĐ</td>
               <td><?= htmlspecialchars($sp['product_description']) ?></td>
               <td><?= htmlspecialchars($sp['product_details']) ?></td>
-              <td><img src="<?= htmlspecialchars($sp['product_images']) ?>" alt="Image" style="max-width: 100px;"></td>
+              <td><img src="../../Assets/img/sanpham/<?= htmlspecialchars($sp['product_images']) ?>" alt="Image" style="max-width: 100px;"></td>
               <td><?= htmlspecialchars($sp['product_quantity']) ?></td>
             </tr>
           </tbody>

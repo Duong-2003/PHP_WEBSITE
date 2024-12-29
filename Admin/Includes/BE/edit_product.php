@@ -16,7 +16,7 @@ if (isset($_POST['submit']) && !empty($_POST['product_id'])) {
     $img = basename($_FILES['product_images']['name']);
     $ma = $_POST['product_id'];
 
-    $target_img = '../../../Assets/img/sanpham/' . $img; // Đảm bảo đường dẫn chính xác
+    $target_img ='../../Assets/img/sanpham/' . $img; // Đảm bảo đường dẫn chính xác
     $error = '';
 
     // Kiểm tra và di chuyển tệp ảnh nếu có
