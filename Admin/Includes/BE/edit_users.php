@@ -18,23 +18,7 @@ if (isset($_POST['submit'])) {
     $id = $_POST['user_id']; // Lấy user_id từ biểu mẫu
     $error = '';
 
-    // Kiểm tra và di chuyển tệp ảnh nếu có
-    if (!empty($img)) {
-        $target_img = '../../Assets/img/index/' . $img; // Đường dẫn lưu ảnh
-
-        if (IsExceedingFileNameSize($img)) {
-            $error = "?error=Tên ảnh quá dài không thể lưu trữ";
-            header("location:../../Includes/BE/edit_users.php?datakey=" . urlencode($id) . $error);
-            exit();
-        }
-
-        if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $target_img)) {
-            $error = "?error=Lỗi không di chuyển ảnh đến Assets";
-            header("location:../../Includes/BE/edit_users.php?datakey=" . urlencode($id) . $error);
-            exit();
-        }
-    }
-
+    
     // Kiểm tra xem tất cả các trường có được điền đầy đủ hay không
     if (empty($name) || empty($username) || empty($email) || empty($address) || empty($role)) {
         $connect->close();

@@ -1,6 +1,6 @@
 <?php
 include('../../../connect_SQL/connect.php');
-include('./check_images.php');
+
 session_start();
 ob_start();
 
@@ -16,23 +16,10 @@ if (isset($_POST['submit']) && !empty($_POST['product_id'])) {
     $img = basename($_FILES['product_images']['name']);
     $ma = $_POST['product_id'];
 
-    $target_img ='../../Assets/img/sanpham/' . $img; // Đảm bảo đường dẫn chính xác
+ 
     $error = '';
 
-    // Kiểm tra và di chuyển tệp ảnh nếu có
-    if (!empty($img)) {
-        if (IsExceedingFileNameSize($img)) {
-            $error = "Tên ảnh quá dài không thể lưu trữ";
-            header("location:../Includes/BE/edit_product.php?datakey=$ma&error=" . urlencode($error));
-            exit();
-        }
-
-        if (!move_uploaded_file($_FILES['product_images']['tmp_name'], $target_img)) {
-            $error = "Lỗi không di chuyển ảnh đến Assets";
-            header("location:../Includes/BE/edit_product.php?datakey=$ma&error=" . urlencode($error));
-            exit();
-        }
-    }
+   
 
     // Chuyển đổi giá tiền từ định dạng có dấu phẩy sang số thực
     if (is_string($price)) {
