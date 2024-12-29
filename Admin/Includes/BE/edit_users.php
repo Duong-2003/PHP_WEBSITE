@@ -1,6 +1,6 @@
 <?php
 include('../../../connect_SQL/connect.php');
-include('./check_images.php');
+// include('./check_images.php');
 
 session_start();
 ob_start();
@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $username = trim($_POST['username']); // Tên đăng nhập (không được sửa đổi)
     $email = trim($_POST['email']);
     $password = $_POST['password']; // Không mã hóa mật khẩu ngay lập tức
-    $address = trim($_POST['address']);
+  
     $phone = trim($_POST['phone']);
     $role = $_POST['role'];
     $img = basename($_FILES['avatar']['name']);
@@ -57,11 +57,11 @@ if (isset($_POST['submit'])) {
 
     // Sử dụng Prepared Statements để tránh SQL Injection
     if ($hashed_password) {
-        $query = $connect->prepare("UPDATE user SET name=?, email=?, password=?, address=?, phone=?, role=? WHERE user_id=?");
-        $query->bind_param("ssssssi", $name, $email, $hashed_password, $address, $phone, $role, $id);
+        $query = $connect->prepare("UPDATE user SET name=?, email=?, password=?, , phone=?, role=? WHERE user_id=?");
+        $query->bind_param("ssssssi", $name, $email, $hashed_password, $phone, $role, $id);
     } else {
-        $query = $connect->prepare("UPDATE user SET name=?, email=?, address=?, phone=?, role=? WHERE user_id=?");
-        $query->bind_param("sssssi", $name, $email, $address, $phone, $role, $id);
+        $query = $connect->prepare("UPDATE user SET name=?, email=?, , phone=?, role=? WHERE user_id=?");
+        $query->bind_param("sssssi", $name, $email,  $phone, $role, $id);
     }
 
     // Thực hiện truy vấn và xử lý kết quả

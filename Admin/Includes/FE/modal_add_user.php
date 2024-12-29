@@ -24,15 +24,11 @@
                         <label for="password" class="form-label">Mật Khẩu <span class="text-danger">*</span></label>
                         <input name="password" type="password" class="form-control" id="password" required placeholder="Nhập mật khẩu">
                     </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Địa Chỉ <span class="text-danger">*</span></label>
-                        <input name="address" type="text" class="form-control" id="address" required placeholder="Nhập địa chỉ">
-                    </div>
                   
-                    <!-- <div class="mb-3">
+                    <div class="mb-3">
                         <label for="avatar" class="form-label">Ảnh <span class="text-danger">*</span></label>
                         <input name="avatar" type="file" class="form-control" id="avatar" accept="image/*" required>
-                    </div> -->
+                    </div>
                     <input type="hidden" name="role" value="1"> <!-- 1 tương ứng với ADMIN -->
                     <button type="submit" name="submit" class="btn btn-dark">Thêm</button>
                 </form>

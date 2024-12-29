@@ -20,8 +20,6 @@
 <body>
  
     <?php
-
-
     include('../Includes/FE/menu.php');
     ?>
 

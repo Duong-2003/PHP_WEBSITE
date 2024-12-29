@@ -72,12 +72,12 @@ $result = $stmt->get_result();
             </form>
 
             <div class="comment-section mt-4">
-                <h3>Các Bình Luận:</h3>
+                <h3>Các bình luận:</h3>
                 <?php if ($result->num_rows > 0): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <div class="comment">
                             <div class="comment-author">
-                                <img src="<?php echo htmlspecialchars($row['avatar']); ?>" alt="Avatar" class="avatar">
+                                <!-- <img src="<?php echo htmlspecialchars($row['avatar']); ?>" alt="Avatar" class="avatar"> -->
                                 <?php echo htmlspecialchars($row['user_name']); ?>
                             </div>
                             <div class="comment-text"><?php echo nl2br(htmlspecialchars($row['comment'])); ?></div>

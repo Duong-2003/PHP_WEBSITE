@@ -49,11 +49,7 @@
     }
   </style>
 </head>
-
-<body>
-
-  <div class="content">
-    <?php
+<?php
     include('./admin_website.php');    
     include('../../connect_SQL/connect.php');
 
@@ -90,7 +86,10 @@
     
     $sp = $result->fetch_assoc();
     ?>
+<body>
 
+  
+  <div class="content">
     <h2 class="text-center mb-4">Chi Tiết Sản Phẩm</h2>
     
     <div class="card mb-4">

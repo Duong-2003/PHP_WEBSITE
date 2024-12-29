@@ -74,15 +74,7 @@ $user = $result->fetch_assoc();
         <input name="password" type="password" class="form-control" placeholder="Nhập mật khẩu mới">
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Địa Chỉ</label>
-        <input value="<?= htmlspecialchars($user['address']) ?>" name="address" type="text" class="form-control">
-      </div>
-
-      <!-- <div class="mb-3">
-        <label class="form-label">Số Điện Thoại</label>
-        <input value="<?= htmlspecialchars($user['phone']) ?>" name="phone" type="text" class="form-control">
-      </div> -->
+      
 
       <div class="mb-3">
         <label class="form-label">Quyền <span class="text-danger">*</span></label>
