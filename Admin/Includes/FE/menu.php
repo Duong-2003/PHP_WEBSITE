@@ -72,9 +72,8 @@ if (!isset($_SESSION['username'])) {
         }
 
         .content {
-            margin-left: 200px; /* Adjust based on sidebar width */
-            
-      
+            margin-left: 335px; /* Đảm bảo phù hợp với chiều rộng sidebar */
+            padding: 20px; /* Thêm khoảng cách cho nội dung chính */
         }
 
         @media (max-width: 768px) {
@@ -89,11 +88,13 @@ if (!isset($_SESSION['username'])) {
                 padding-top: 10px;
             }
 
+            .content {
+                margin-left: 0; /* Đặt lại margin cho nội dung chính trên thiết bị di động */
+            }
+
             .sidebar .nav-link {
                 font-size: 1rem;
             }
-
-            
         }
     </style>
 </head>
@@ -103,8 +104,7 @@ if (!isset($_SESSION['username'])) {
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="user-info">
-            <img src="https://cdn-media.sforum.vn/storage/app/media/THANHAN/2/2a/avatar-dep-119.jpg" alt="Avatar"
-                class="avatar me-2">
+            <img src="https://cdn-media.sforum.vn/storage/app/media/THANHAN/2/2a/avatar-dep-119.jpg" alt="Avatar" class="avatar me-2">
             <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>
         </div>
         <div class="modal-body">
@@ -139,7 +139,7 @@ if (!isset($_SESSION['username'])) {
 
     <!-- Main Content -->
     <div class="content">
-        <!-- <h1 class="text-center">Chào mừng đến Quản trị</h1> -->
+        <h1 class="text-center"></h1>
         <!-- Thêm nội dung chính tại đây -->
     </div>
 
